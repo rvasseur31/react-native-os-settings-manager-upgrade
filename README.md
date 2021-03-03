@@ -1,27 +1,61 @@
-# react-native-os-settings-manager
+# React Native OS Settings Manager
 
-Native module with tools to interact with Android/IOS settings.
+This is a native module to interact with Android/IOS settings.
 
 ## Installation
 
-```sh
-npm install react-native-os-settings-manager
-```
+`npm install react-native-os-settings-manager`
+
+## Features
+
+### ANDROID
+
+| Method name             | Return value    |
+|-------------------------|:---------------:|
+| areNotificationsEnabled |  Boolean        |
+| openAppSettings         | Void            |
+
+### IOS
+
+| Method name             | Return value                                                    |
+|-------------------------|:---------------------------------------------------------------:|
+| areNotificationsEnabled | `{badge:true, alert:true, sound:true}` or `{}` if notifications disabled |
+| openAppSettings         | Void                                                            |
 
 ## Usage
+```javascript
+import RNOsSettingsManager from 'react-native-os-settings-manager';
 
-```js
-import OsSettingsManager from "react-native-os-settings-manager";
+/**
+* This will open the os settings of your application.
+*/
+RNOsSettingsManager.openAppSettings();
 
-// ...
+/**
+* This will tell you if notifications are enabled or not in Android/IOS settings
+*/
+let notifications_enabled = await RNOsSettingsManager.areNotificationsEnabled();
 
-const result = await OsSettingsManager.multiply(3, 7);
+if ( Platform.OS == 'android' ) {
+	// ANDROID device
+	console.assert(notifications_enabled == true,
+		'It means that the notifications for your application are enabled');
+
+	console.assert(notifications_enabled == false,
+		'It means that the notifications for your application are disabled');
+
+} else if ( Platform.OS == 'ios' ) {
+	// IOS device
+	console.assert(notifications_enabled.badge !== undefined,
+		"It means that notification's badge for your application is enabled");
+
+	console.assert(notifications_enabled.alert !== undefined,
+		"It means that notification's alert for your application is enabled");
+
+	console.assert(notifications_enabled.sound !== undefined,
+		"It means that notification's sound for your application is enabled");
+
+	console.assert(isNotificationEnabled === {},
+		"It means that the notifications for your application are disabled");
+}
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
