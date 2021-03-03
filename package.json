@@ -1,6 +1,6 @@
 {
   "name": "react-native-os-settings-manager",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Native module with tools to interact with Android/IOS settings.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

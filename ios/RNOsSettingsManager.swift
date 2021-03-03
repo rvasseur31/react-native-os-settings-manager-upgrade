@@ -2,6 +2,11 @@ import UserNotifications
 
 @objc(RNOsSettingsManager)
 class RNOsSettingsManager: NSObject {
+
+    @objc
+    static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
     
     @objc
     func openAppSettings() {
