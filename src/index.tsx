@@ -4,6 +4,7 @@ type RNOsSettingsManagerType = {
   areNotificationsEnabled(): Promise<any>;
   openAppSettings(openAsNewTask: boolean): void;
   openAppSettings(): void;
+  setNotificationBadge(notificationNumber: Number): void;
 };
 
 const { RNOsSettingsManager } = NativeModules;

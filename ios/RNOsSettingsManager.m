@@ -7,4 +7,6 @@ RCT_EXTERN_METHOD(openAppSettings)
 RCT_EXTERN_METHOD(areNotificationsEnabled: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(setNotificationBadge: (NSInteger *)notificationNumber)
+
 @end

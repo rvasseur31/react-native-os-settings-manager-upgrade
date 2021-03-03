@@ -24,6 +24,11 @@ export default function App() {
             RNOsSettingsManager.openAppSettings()
         }}
         title="Ouvrir dans les parmètres"/>
+        <Button
+        onPress={() => {
+          RNOsSettingsManager.setNotificationBadge(10);
+        }}
+        title="Ajouter le badge de notification"/>
     </View>
   );
 }

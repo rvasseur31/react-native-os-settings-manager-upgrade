@@ -37,4 +37,17 @@ class RNOsSettingsManager: NSObject {
             resolve(dict)
         })
     }
+    
+    @objc
+    func setNotificationBadge(_ notificationNumber: Int) -> Void  {
+        let application = UIApplication.shared
+            if #available(iOS 10.0, *) {
+              let center = UNUserNotificationCenter.current()
+              center.requestAuthorization(options: [.badge, .alert, .sound]) { _, _ in }
+            } else {
+              application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
+            }
+            application.registerForRemoteNotifications()
+            application.applicationIconBadgeNumber = notificationNumber
+    }
 }
