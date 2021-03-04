@@ -2,7 +2,7 @@ import UserNotifications
 
 @objc(RNOsSettingsManager)
 class RNOsSettingsManager: NSObject {
-
+    
     @objc
     static func requiresMainQueueSetup() -> Bool {
         return true
@@ -10,7 +10,9 @@ class RNOsSettingsManager: NSObject {
     
     @objc
     func openAppSettings() {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        DispatchQueue.main.async {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
     }
     
     @objc
@@ -41,13 +43,15 @@ class RNOsSettingsManager: NSObject {
     @objc
     func setNotificationBadge(_ notificationNumber: Int) -> Void  {
         let application = UIApplication.shared
-            if #available(iOS 10.0, *) {
-              let center = UNUserNotificationCenter.current()
-              center.requestAuthorization(options: [.badge, .alert, .sound]) { _, _ in }
-            } else {
-              application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
-            }
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.badge, .alert, .sound]) { _, _ in }
+        } else {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
+        }
+        DispatchQueue.main.async {
             application.registerForRemoteNotifications()
             application.applicationIconBadgeNumber = notificationNumber
+        }
     }
 }
